@@ -7,11 +7,11 @@ COPY ./file/get-pip.py /tmp
 
 # run commands for install ansible
 RUN cd /tmp && \
-    python get-pip.py --proxy=$http_proxy && \
+    python get-pip.py && \
     rm -f /tmp/get-pip.py && \
-    pip install cryptography paramiko PyYAML jinja2 pyvmomi dnspython --proxy=$http_proxy && \
+    pip install cryptography paramiko PyYAML jinja2 pyvmomi dnspython && \
     yum -y update && yum -y install openssh-clients unzip && yum clean all && \
-    curl -U $proxy_user:$proxy_pass --proxy $proxy_url https://github.com/ansible/ansible/archive/stable-2.4.zip -L -o ansible-stable-2.4.zip && \
+    curl https://github.com/ansible/ansible/archive/stable-2.4.zip -L -o ansible-stable-2.4.zip && \
     unzip ansible-stable-2.4.zip && \
     cd ansible-stable-2.4 && \
     python setup.py install && \
