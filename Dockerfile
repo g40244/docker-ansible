@@ -1,0 +1,26 @@
+FROM centos
+
+MAINTAINER Gustav <gustav.uhia@gmail.com>
+
+# copy get-pip.py
+COPY ./file/get-pip.py /tmp
+
+# run commands for install ansible
+RUN cd /tmp && \
+    python get-pip.py --proxy=$http_proxy && \
+    rm -f /tmp/get-pip.py && \
+    pip install cryptography paramiko PyYAML jinja2 pyvmomi dnspython --proxy=$http_proxy && \
+    yum -y update && yum -y install openssh-clients unzip && yum clean all && \
+    curl -U $proxy_user:$proxy_pass --proxy $proxy_url https://github.com/ansible/ansible/archive/stable-2.4.zip -L -o ansible-stable-2.4.zip && \
+    unzip ansible-stable-2.4.zip && \
+    cd ansible-stable-2.4 && \
+    python setup.py install && \
+    cd /tmp && \
+    rm -rf /tmp/ansible-stable-2.4*
+
+# copy ansible.cfg
+COPY ./file/ansible.cfg /etc/ansible/ansible.cfg
+
+# run systemd
+WORKDIR /root
+CMD ["/bin/bash"]
