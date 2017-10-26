@@ -21,6 +21,5 @@ RUN cd /tmp && \
 # copy ansible.cfg
 COPY ./file/ansible.cfg /etc/ansible/ansible.cfg
 
-# run systemd
 WORKDIR /root
 CMD ["/bin/bash"]
