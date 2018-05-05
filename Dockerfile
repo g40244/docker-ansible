@@ -9,7 +9,7 @@ COPY ./file/get-pip.py /tmp
 RUN cd /tmp && \
     python get-pip.py && \
     rm -f /tmp/get-pip.py && \
-    pip install cryptography paramiko PyYAML jinja2 pyvmomi dnspython python-netaddr && \
+    pip install cryptography paramiko PyYAML jinja2 pyvmomi dnspython netaddr && \
     yum -y update && yum -y install openssh-clients unzip sshpass && yum clean all && \
     curl https://github.com/ansible/ansible/archive/stable-2.4.zip -L -o ansible-stable-2.4.zip && \
     unzip ansible-stable-2.4.zip && \
