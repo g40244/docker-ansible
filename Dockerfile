@@ -7,7 +7,7 @@ RUN cd /tmp && \
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python get-pip.py && \
     rm -f /tmp/get-pip.py && \
-    pip install 'ansible>2.4,<2.5' && \
+    pip install 'ansible>2.5,<2.6' && \
     yum -y update && yum -y install openssh-clients sshpass && yum clean all
 
 # copy ansible.cfg
